@@ -45,5 +45,10 @@ def score():
     return render_template('score.html', score=score, num=num)
 
 
+@app.route('/word')
+def word():
+    return render_template('word.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
