@@ -1,12 +1,30 @@
 from flask import Flask, render_template
 import sqlite3
+import jieba
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    con = sqlite3.connect('movie.db')
+    cur = con.cursor()
+    sql = 'select instroduction from movie250'
+    sql2 = 'select count(cname) from movie250'
+    data = cur.execute(sql)
+    text = ""
+    movie_count = 0
+    for item in data:
+        text = text + item[0]
+    cut = jieba.cut(text)
+    string = ' '.join(cut)
+    str_count = len(string)
+    data2 = cur.execute(sql2)
+    for item in data2:
+        movie_count = item[0]
+    cur.close()
+    con.close()
+    return render_template('index.html', str_count=str_count, movie_count=movie_count)
 
 
 @app.route('/index')
