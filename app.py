@@ -43,7 +43,7 @@ def movie():
         data_list.append(item)
     cur.close()
     con.close()
-    print(data_list)
+    # print(data_list)
     return render_template("movie.html", movies=data_list)
 
 
