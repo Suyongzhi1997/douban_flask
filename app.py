@@ -40,8 +40,8 @@ def score():
     for item in data:
         score.append(str(item[0]))
         num.append(item[1])
-    con.close()
     cur.close()
+    con.close()
     return render_template('score.html', score=score, num=num)
 
 
